@@ -1,0 +1,397 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Diction Coach — Comparatif de thèmes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Source+Sans+3:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --page-bg:#f6f4f0;
+    --page-surface:#ffffff;
+    --page-border:#e4e0d8;
+    --page-text:#26241f;
+    --page-text-dim:#726d61;
+    --page-accent:#3d5a52;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --page-bg:#15140f;
+      --page-surface:#1d1c16;
+      --page-border:#33312a;
+      --page-text:#f1efe8;
+      --page-text-dim:#a39d8c;
+      --page-accent:#8fb3a6;
+    }
+  }
+  :root[data-theme="dark"]{
+    --page-bg:#15140f;
+    --page-surface:#1d1c16;
+    --page-border:#33312a;
+    --page-text:#f1efe8;
+    --page-text-dim:#a39d8c;
+    --page-accent:#8fb3a6;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--page-bg);
+    color:var(--page-text);
+    font-family:"Source Sans 3", sans-serif;
+    padding:32px 20px 80px;
+  }
+  .intro{max-width:760px;margin:0 auto 48px;}
+  .intro .eyebrow{
+    font-family:"DM Sans", sans-serif;
+    font-size:12px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--page-accent);
+    font-weight:600;
+    margin-bottom:10px;
+  }
+  .intro h1{
+    font-family:"DM Sans", sans-serif;
+    font-size:clamp(26px,4vw,36px);
+    line-height:1.15;
+    margin:0 0 12px;
+    text-wrap:balance;
+  }
+  .intro p{
+    font-size:16px;
+    line-height:1.6;
+    color:var(--page-text-dim);
+    max-width:65ch;
+    margin:0;
+  }
+  .board{
+    max-width:1180px;
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(340px,1fr));
+    gap:28px;
+  }
+  .theme-card{
+    border:1px solid var(--page-border);
+    border-radius:6px;
+    overflow:hidden;
+    background:var(--page-surface);
+    display:flex;
+    flex-direction:column;
+  }
+  .theme-label{
+    padding:16px 20px;
+    border-bottom:1px solid var(--page-border);
+    font-family:"DM Sans", sans-serif;
+  }
+  .theme-label .name{font-size:15px;font-weight:600;}
+  .theme-label .desc{font-size:13px;color:var(--page-text-dim);margin-top:2px;}
+
+  /* ============ THEME A — NEURO CLINIQUE (révisé, glass + chiffres fins) ============ */
+  .theme-a{
+    --bg:#e7edf1;
+    --amb-1:#c9d9e2;
+    --amb-2:#e2d9ce;
+    --surface:rgba(255,255,255,0.5);
+    --surface-2:rgba(255,255,255,0.32);
+    --border:rgba(255,255,255,0.65);
+    --text:#1c2733;
+    --text-dim:#5c6b78;
+    --accent:#3d6f86;
+    --accent-soft:rgba(61,111,134,0.14);
+    --success:#3f7d63;
+    --warning:#a9791f;
+    --error:#a8493a;
+    font-family:"DM Sans", sans-serif;
+  }
+  .theme-a .stage{background:var(--bg);color:var(--text);padding:26px 22px 30px;}
+  .theme-a .hero{font-family:"Outfit", sans-serif;font-weight:600;font-size:26px;letter-spacing:-0.01em;margin:0 0 6px;color:var(--text);}
+  .theme-a .body-copy{font-size:14px;line-height:1.6;color:var(--text-dim);margin:0 0 20px;max-width:46ch;}
+  .theme-a .swatches{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px;}
+  .theme-a .swatch{width:78px;font-size:10px;font-family:"JetBrains Mono",monospace;color:var(--text-dim);}
+  .theme-a .swatch i{display:block;height:40px;border-radius:10px;margin-bottom:4px;border:1px solid #d7dee3;}
+  .theme-a .comps{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:22px;align-items:center;}
+  .theme-a .btn{font-family:"DM Sans",sans-serif;font-size:13px;font-weight:600;padding:9px 18px;border-radius:999px;border:1px solid transparent;cursor:default;}
+  .theme-a .btn.primary{background:var(--text);color:#f2f5f7;}
+  .theme-a .btn.secondary{background:var(--surface-2);color:var(--text);border-color:#d7dee3;}
+  .theme-a .btn.ghost{background:transparent;color:var(--accent);border-color:var(--accent);}
+  .theme-a .chip{font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;}
+  .theme-a .chip.ok{background:rgba(63,125,99,0.14);color:var(--success);}
+  .theme-a .chip.warn{background:rgba(169,121,31,0.14);color:var(--warning);}
+  .theme-a .phone{
+    width:100%;max-width:280px;margin:0 auto;border-radius:26px;
+    padding:18px 16px;position:relative;overflow:hidden;
+    background:
+      radial-gradient(120% 90% at 15% 0%, var(--amb-1), transparent 60%),
+      radial-gradient(110% 90% at 100% 100%, var(--amb-2), transparent 55%),
+      var(--bg);
+    box-shadow:0 20px 40px -24px rgba(28,39,51,0.35), inset 0 0 0 1px rgba(255,255,255,0.5);
+  }
+  .theme-a .phone .top{display:flex;justify-content:space-between;align-items:center;font-size:11px;color:var(--text-dim);margin-bottom:16px;text-transform:uppercase;letter-spacing:0.08em;position:relative;}
+  .theme-a .streak-card{
+    background:var(--surface);border:1px solid var(--border);border-radius:20px;
+    padding:18px;margin-bottom:14px;position:relative;overflow:hidden;
+    backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+    box-shadow:0 12px 28px -18px rgba(28,39,51,0.3);
+  }
+  .theme-a .streak-num{font-family:"Outfit",sans-serif;font-size:44px;font-weight:300;color:var(--text);line-height:1;font-variant-numeric:tabular-nums;letter-spacing:-0.02em;}
+  .theme-a .streak-num sup{font-size:14px;font-weight:500;color:var(--accent);margin-left:4px;}
+  .theme-a .streak-cap{font-size:11px;text-transform:uppercase;letter-spacing:0.12em;color:var(--text-dim);margin-top:6px;}
+  .theme-a .cta{
+    width:100%;background:var(--text);color:#f2f5f7;border:none;border-radius:999px;
+    padding:14px;font-family:"DM Sans",sans-serif;font-weight:700;font-size:14px;margin-bottom:14px;
+  }
+  .theme-a .history-item{display:flex;justify-content:space-between;padding:9px 0;border-top:1px solid rgba(28,39,51,0.08);font-size:12px;color:var(--text-dim);}
+  .theme-a .history-item span:last-child{color:var(--text);font-family:"Outfit",monospace;font-weight:500;font-variant-numeric:tabular-nums;}
+  .theme-a .table{width:100%;font-size:11px;font-family:"JetBrains Mono",monospace;border-collapse:collapse;margin-top:14px;}
+  .theme-a .table th{text-align:left;color:var(--text-dim);font-weight:500;padding:5px 8px;border-bottom:1px solid rgba(28,39,51,0.1);}
+  .theme-a .table td{padding:6px 8px;border-bottom:1px solid rgba(28,39,51,0.08);font-variant-numeric:tabular-nums;}
+
+  /* ============ THEME B — CARNET DU SOIR ============ */
+  .theme-b{
+    --bg:#f4ede2;
+    --surface:#fbf7ef;
+    --surface-2:#eee3d1;
+    --border:#ddccae;
+    --text:#3a2f22;
+    --text-dim:#8a7a63;
+    --accent:#b5623c;
+    --accent-soft:rgba(181,98,60,0.12);
+    --success:#5f7a52;
+    --warning:#b5863c;
+    --error:#a8503f;
+    font-family:"Source Sans 3", sans-serif;
+  }
+  .theme-b .stage{background:var(--bg);color:var(--text);padding:26px 22px 30px;}
+  .theme-b .hero{font-family:"Fraunces", serif;font-weight:500;font-size:28px;margin:0 0 6px;}
+  .theme-b .body-copy{font-size:14px;line-height:1.65;color:var(--text-dim);margin:0 0 20px;max-width:46ch;}
+  .theme-b .swatches{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px;}
+  .theme-b .swatch{width:78px;font-size:10px;font-family:"DM Sans",sans-serif;}
+  .theme-b .swatch i{display:block;height:40px;border-radius:4px;margin-bottom:4px;border:1px solid var(--border);}
+  .theme-b .comps{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:22px;align-items:center;}
+  .theme-b .btn{font-family:"Source Sans 3",sans-serif;font-size:13px;font-weight:600;padding:9px 16px;border-radius:4px;border:1px solid transparent;cursor:default;}
+  .theme-b .btn.primary{background:var(--accent);color:#fff8f0;}
+  .theme-b .btn.secondary{background:var(--surface-2);color:var(--text);border-color:var(--border);}
+  .theme-b .btn.ghost{background:transparent;color:var(--accent);border-color:var(--accent);}
+  .theme-b .chip{font-size:11px;font-weight:600;padding:4px 9px;border-radius:3px;}
+  .theme-b .chip.ok{background:rgba(95,122,82,0.14);color:var(--success);}
+  .theme-b .chip.warn{background:rgba(181,134,60,0.16);color:var(--warning);}
+  .theme-b .phone{
+    width:100%;max-width:280px;margin:0 auto;border-radius:10px;
+    background:var(--surface);border:1px solid var(--border);
+    padding:20px 18px;box-shadow:0 16px 32px -22px rgba(58,47,34,0.35);
+  }
+  .theme-b .phone .top{display:flex;justify-content:space-between;align-items:center;font-size:11px;color:var(--text-dim);margin-bottom:18px;font-family:"DM Sans",sans-serif;letter-spacing:0.04em;}
+  .theme-b .streak-card{
+    background:var(--surface-2);border:1px solid var(--border);border-radius:8px;
+    padding:18px;margin-bottom:16px;
+  }
+  .theme-b .streak-num{font-family:"Fraunces",serif;font-size:38px;font-weight:500;color:var(--accent);line-height:1;font-variant-numeric:tabular-nums;}
+  .theme-b .streak-cap{font-size:11.5px;color:var(--text-dim);margin-top:6px;font-style:italic;}
+  .theme-b .cta{
+    width:100%;background:var(--accent);color:#fff8f0;border:none;border-radius:6px;
+    padding:14px;font-family:"Source Sans 3",sans-serif;font-weight:600;font-size:14px;margin-bottom:16px;
+  }
+  .theme-b .history-item{display:flex;justify-content:space-between;padding:10px 0;border-top:1px solid var(--border);font-size:12.5px;color:var(--text-dim);}
+  .theme-b .history-item span:last-child{color:var(--text);font-family:"DM Sans",sans-serif;font-variant-numeric:tabular-nums;}
+  .theme-b .table{width:100%;font-size:12px;font-family:"DM Sans",sans-serif;border-collapse:collapse;margin-top:14px;}
+  .theme-b .table th{text-align:left;color:var(--text-dim);font-weight:500;padding:5px 8px;border-bottom:1px solid var(--border);}
+  .theme-b .table td{padding:6px 8px;border-bottom:1px solid var(--border);font-variant-numeric:tabular-nums;}
+
+  /* ============ THEME C — SOBRE & DIRECT ============ */
+  .theme-c{
+    --bg:#fbfbfa;
+    --surface:#ffffff;
+    --surface-2:#f0f0ee;
+    --border:#dddcd7;
+    --text:#141412;
+    --text-dim:#6b6a64;
+    --accent:#2f6b4f;
+    --accent-soft:rgba(47,107,79,0.1);
+    --success:#2f6b4f;
+    --warning:#9c7a1f;
+    --error:#a8362a;
+    font-family:"Plus Jakarta Sans", sans-serif;
+  }
+  .theme-c .stage{background:var(--bg);color:var(--text);padding:26px 22px 30px;}
+  .theme-c .hero{font-family:"Plus Jakarta Sans", sans-serif;font-weight:800;font-size:26px;letter-spacing:-0.02em;margin:0 0 6px;}
+  .theme-c .body-copy{font-size:14px;line-height:1.6;color:var(--text-dim);margin:0 0 20px;max-width:46ch;}
+  .theme-c .swatches{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px;}
+  .theme-c .swatch{width:78px;font-size:10px;font-family:"JetBrains Mono",monospace;}
+  .theme-c .swatch i{display:block;height:40px;margin-bottom:4px;border:1px solid var(--border);}
+  .theme-c .comps{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:22px;align-items:center;}
+  .theme-c .btn{font-family:"Plus Jakarta Sans",sans-serif;font-size:13px;font-weight:700;padding:9px 16px;border-radius:2px;border:1px solid var(--text);cursor:default;}
+  .theme-c .btn.primary{background:var(--accent);color:#fff;border-color:var(--accent);}
+  .theme-c .btn.secondary{background:var(--surface);color:var(--text);}
+  .theme-c .btn.ghost{background:transparent;color:var(--text);border-color:transparent;text-decoration:underline;}
+  .theme-c .chip{font-size:11px;font-weight:700;padding:3px 8px;border-radius:2px;text-transform:uppercase;letter-spacing:0.04em;}
+  .theme-c .chip.ok{background:var(--surface-2);color:var(--success);}
+  .theme-c .chip.warn{background:var(--surface-2);color:var(--warning);}
+  .theme-c .phone{
+    width:100%;max-width:280px;margin:0 auto;border-radius:2px;
+    background:var(--surface);border:1.5px solid var(--text);
+    padding:20px 18px;
+  }
+  .theme-c .phone .top{display:flex;justify-content:space-between;align-items:center;font-size:11px;color:var(--text-dim);margin-bottom:18px;text-transform:uppercase;letter-spacing:0.08em;font-weight:600;}
+  .theme-c .streak-card{
+    background:var(--surface);border:1.5px solid var(--text);border-radius:0;
+    padding:16px;margin-bottom:16px;
+  }
+  .theme-c .streak-num{font-family:"JetBrains Mono",monospace;font-size:42px;font-weight:600;color:var(--text);line-height:1;font-variant-numeric:tabular-nums;}
+  .theme-c .streak-cap{font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent);margin-top:6px;font-weight:700;}
+  .theme-c .cta{
+    width:100%;background:var(--accent);color:#fff;border:none;border-radius:2px;
+    padding:14px;font-family:"Plus Jakarta Sans",sans-serif;font-weight:800;font-size:14px;margin-bottom:16px;
+  }
+  .theme-c .history-item{display:flex;justify-content:space-between;padding:9px 0;border-top:1px solid var(--border);font-size:12px;color:var(--text-dim);}
+  .theme-c .history-item span:last-child{color:var(--text);font-family:"JetBrains Mono",monospace;font-variant-numeric:tabular-nums;}
+  .theme-c .table{width:100%;font-size:11px;font-family:"JetBrains Mono",monospace;border-collapse:collapse;margin-top:14px;}
+  .theme-c .table th{text-align:left;color:var(--text-dim);font-weight:600;padding:5px 8px;border-bottom:1.5px solid var(--text);text-transform:uppercase;font-size:10px;letter-spacing:0.05em;}
+  .theme-c .table td{padding:6px 8px;border-bottom:1px solid var(--border);font-variant-numeric:tabular-nums;}
+</style>
+</head>
+<body>
+
+  <div class="intro">
+    <div class="eyebrow">Diction Coach — Design</div>
+    <h1>Comparatif des trois pistes</h1>
+    <p>Trois identités visuelles complètes pour la même page d'accueil : streak, séance du jour, historique. Chaque thème est volontairement figé dans son propre monde visuel (indépendant du thème clair/sombre du navigateur), pour comparer les ambiances côte à côte.</p>
+  </div>
+
+  <div class="board">
+
+    <!-- THEME A -->
+    <div class="theme-card theme-a">
+      <div class="theme-label">
+        <div class="name">A — Neuro Clinique (révisé)</div>
+        <div class="desc">Glass tiles pastel, chiffres fins, boutons pilule — inspiré de la référence Dribbble</div>
+      </div>
+      <div class="stage">
+        <div class="hero">Diction Coach</div>
+        <p class="body-copy">Aujourd'hui : un virelangue, une lecture à voix haute, un exercice de respiration. Cinq minutes suffisent.</p>
+
+        <div class="swatches">
+          <div class="swatch"><i style="background:#e7edf1"></i>#E7EDF1</div>
+          <div class="swatch"><i style="background:#c9d9e2"></i>#C9D9E2</div>
+          <div class="swatch"><i style="background:#3d6f86"></i>#3D6F86</div>
+          <div class="swatch"><i style="background:#1c2733"></i>#1C2733</div>
+        </div>
+
+        <div class="comps">
+          <button class="btn primary">Démarrer</button>
+          <button class="btn secondary">Historique</button>
+          <button class="btn ghost">Exporter</button>
+          <span class="chip ok">Séance faite</span>
+          <span class="chip warn">Jour manqué</span>
+        </div>
+
+        <div class="phone">
+          <div class="top"><span>Accueil</span><span>Ven. 30 août</span></div>
+          <div class="streak-card">
+            <div class="streak-num">12</div>
+            <div class="streak-cap">Jours consécutifs</div>
+          </div>
+          <button class="cta">Démarrer la séance du jour</button>
+          <div class="history-item"><span>29 août — ressenti</span><span>4/5</span></div>
+          <div class="history-item"><span>28 août — ressenti</span><span>3/5</span></div>
+          <table class="table">
+            <tr><th>Date</th><th>Exercices</th><th>Note</th></tr>
+            <tr><td>29/08</td><td>3/3</td><td>4</td></tr>
+            <tr><td>28/08</td><td>3/3</td><td>3</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- THEME B -->
+    <div class="theme-card theme-b">
+      <div class="theme-label">
+        <div class="name">B — Carnet du soir</div>
+        <div class="desc">Chaleureux, éditorial, journal personnel</div>
+      </div>
+      <div class="stage">
+        <div class="hero">Diction Coach</div>
+        <p class="body-copy">Aujourd'hui : un virelangue, une lecture à voix haute, un exercice de respiration. Cinq minutes suffisent.</p>
+
+        <div class="swatches">
+          <div class="swatch"><i style="background:#f4ede2"></i>#F4EDE2</div>
+          <div class="swatch"><i style="background:#fbf7ef"></i>#FBF7EF</div>
+          <div class="swatch"><i style="background:#b5623c"></i>#B5623C</div>
+          <div class="swatch"><i style="background:#3a2f22"></i>#3A2F22</div>
+        </div>
+
+        <div class="comps">
+          <button class="btn primary">Démarrer</button>
+          <button class="btn secondary">Historique</button>
+          <button class="btn ghost">Exporter</button>
+          <span class="chip ok">Séance faite</span>
+          <span class="chip warn">Jour manqué</span>
+        </div>
+
+        <div class="phone">
+          <div class="top"><span>Accueil</span><span>Ven. 30 août</span></div>
+          <div class="streak-card">
+            <div class="streak-num">12</div>
+            <div class="streak-cap">Jours consécutifs</div>
+          </div>
+          <button class="cta">Démarrer la séance du jour</button>
+          <div class="history-item"><span>29 août — ressenti</span><span>4/5</span></div>
+          <div class="history-item"><span>28 août — ressenti</span><span>3/5</span></div>
+          <table class="table">
+            <tr><th>Date</th><th>Exercices</th><th>Note</th></tr>
+            <tr><td>29/08</td><td>3/3</td><td>4</td></tr>
+            <tr><td>28/08</td><td>3/3</td><td>3</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- THEME C -->
+    <div class="theme-card theme-c">
+      <div class="theme-label">
+        <div class="name">C — Sobre &amp; direct</div>
+        <div class="desc">Quasi monochrome, un seul accent, zéro décoration</div>
+      </div>
+      <div class="stage">
+        <div class="hero">Diction Coach</div>
+        <p class="body-copy">Aujourd'hui : un virelangue, une lecture à voix haute, un exercice de respiration. Cinq minutes suffisent.</p>
+
+        <div class="swatches">
+          <div class="swatch"><i style="background:#fbfbfa;border:1px solid #ddd"></i>#FBFBFA</div>
+          <div class="swatch"><i style="background:#141412"></i>#141412</div>
+          <div class="swatch"><i style="background:#2f6b4f"></i>#2F6B4F</div>
+          <div class="swatch"><i style="background:#dddcd7"></i>#DDDCD7</div>
+        </div>
+
+        <div class="comps">
+          <button class="btn primary">Démarrer</button>
+          <button class="btn secondary">Historique</button>
+          <button class="btn ghost">Exporter</button>
+          <span class="chip ok">Séance faite</span>
+          <span class="chip warn">Jour manqué</span>
+        </div>
+
+        <div class="phone">
+          <div class="top"><span>Accueil</span><span>Ven. 30 août</span></div>
+          <div class="streak-card">
+            <div class="streak-num">12</div>
+            <div class="streak-cap">Jours consécutifs</div>
+          </div>
+          <button class="cta">Démarrer la séance du jour</button>
+          <div class="history-item"><span>29 août — ressenti</span><span>4/5</span></div>
+          <div class="history-item"><span>28 août — ressenti</span><span>3/5</span></div>
+          <table class="table">
+            <tr><th>Date</th><th>Exercices</th><th>Note</th></tr>
+            <tr><td>29/08</td><td>3/3</td><td>4</td></tr>
+            <tr><td>28/08</td><td>3/3</td><td>3</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>
