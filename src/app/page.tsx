@@ -4,11 +4,26 @@ import * as React from "react";
 import Link from "next/link";
 import { AnimatedNavFramer } from "@/components/ui/navigation-menu";
 import { getSessionLogForDate, getSessionLogs } from "@/lib/session-storage";
+import { computeStreak } from "@/lib/streak";
 import { todayKey } from "@/lib/date";
 
 interface HomeStatus {
   hasAnyHistory: boolean;
   doneToday: boolean;
+  streak: number;
+}
+
+function StreakCard({ streak }: { streak: number }) {
+  return (
+    <div className="w-full max-w-xs rounded-3xl border border-border bg-card/70 p-6 shadow-sm backdrop-blur-md">
+      <div className="font-display text-5xl font-light tabular-nums">
+        {streak}
+      </div>
+      <div className="mt-1 text-xs font-medium uppercase tracking-wider text-muted-foreground">
+        {streak <= 1 ? "jour consécutif" : "jours consécutifs"}
+      </div>
+    </div>
+  );
 }
 
 export default function HomePage() {
@@ -19,9 +34,13 @@ export default function HomePage() {
     // dérivable pendant le rendu (accès à une API navigateur), donc pas
     // d'alternative sans effet ici.
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    setStatus({
-      hasAnyHistory: getSessionLogs().length > 0,
-      doneToday: Boolean(getSessionLogForDate(todayKey())),
+    setStatus(() => {
+      const logs = getSessionLogs();
+      return {
+        hasAnyHistory: logs.length > 0,
+        doneToday: Boolean(getSessionLogForDate(todayKey())),
+        streak: computeStreak(logs),
+      };
     });
   }, []);
 
@@ -30,6 +49,8 @@ export default function HomePage() {
       <AnimatedNavFramer />
       <main className="mx-auto flex min-h-svh max-w-md flex-col items-center justify-center gap-6 px-6 text-center">
         <h1 className="font-display text-4xl font-semibold">Diction Coach</h1>
+
+        {status && status.hasAnyHistory && <StreakCard streak={status.streak} />}
 
         {!status ? null : !status.hasAnyHistory ? (
           <p className="max-w-sm text-muted-foreground">
