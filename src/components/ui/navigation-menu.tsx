@@ -11,8 +11,8 @@ import { Mic, Menu } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const navItems = [
-  { name: "Accueil", href: "#" },
-  { name: "Séance", href: "#" },
+  { name: "Accueil", href: "/" },
+  { name: "Séance", href: "/seance" },
   { name: "Historique", href: "#" },
   { name: "Réglages", href: "#" },
 ];
