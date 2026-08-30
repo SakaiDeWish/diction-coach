@@ -11,7 +11,7 @@ import {
   getSessionLogs,
   setPendingSelection,
 } from "@/lib/session-storage";
-import { addJournalEntry } from "@/lib/journal-storage";
+import { addJournalEntry, type JournalCriteria } from "@/lib/journal-storage";
 import { todayKey } from "@/lib/date";
 
 interface SeanceInit {
@@ -38,16 +38,70 @@ function initSeance(): SeanceInit {
 
 type Step = "exercises" | "journal" | "done";
 
+const DETAILED_CRITERIA: { key: keyof JournalCriteria; label: string }[] = [
+  { key: "debit", label: "Débit" },
+  { key: "articulation", label: "Articulation" },
+  { key: "fatigue", label: "Fatigue" },
+];
+
+function RatingButtons({
+  value,
+  onChange,
+}: {
+  value: number | null;
+  onChange: (value: number) => void;
+}) {
+  return (
+    <div className="flex justify-center gap-2">
+      {[1, 2, 3, 4, 5].map((option) => (
+        <button
+          key={option}
+          type="button"
+          onClick={() => onChange(option)}
+          aria-pressed={value === option}
+          className={`h-11 w-11 rounded-full text-sm font-semibold transition-colors ${
+            value === option
+              ? "bg-primary text-primary-foreground"
+              : "bg-card text-foreground border border-border"
+          }`}
+        >
+          {option}
+        </button>
+      ))}
+    </div>
+  );
+}
+
 function JournalStep({ onDone }: { onDone: () => void }) {
+  const [detailedMode, setDetailedMode] = React.useState(false);
   const [note, setNote] = React.useState<number | null>(null);
+  const [criteria, setCriteria] = React.useState<Partial<JournalCriteria>>({});
   const [comment, setComment] = React.useState("");
 
+  const detailedComplete =
+    typeof criteria.debit === "number" &&
+    typeof criteria.articulation === "number" &&
+    typeof criteria.fatigue === "number";
+
+  const canSave = detailedMode ? detailedComplete : note !== null;
+
   const handleSave = () => {
-    addJournalEntry({
-      date: todayKey(),
-      note: note ?? 3,
-      comment: comment.trim() || undefined,
-    });
+    const trimmedComment = comment.trim() || undefined;
+    if (detailedMode && detailedComplete) {
+      addJournalEntry({
+        date: todayKey(),
+        mode: "detailed",
+        criteria: criteria as JournalCriteria,
+        comment: trimmedComment,
+      });
+    } else {
+      addJournalEntry({
+        date: todayKey(),
+        mode: "simple",
+        note: note ?? 3,
+        comment: trimmedComment,
+      });
+    }
     onDone();
   };
 
@@ -57,23 +111,35 @@ function JournalStep({ onDone }: { onDone: () => void }) {
         Comment s&apos;est passée la séance ?
       </div>
 
-      <div className="flex justify-center gap-2">
-        {[1, 2, 3, 4, 5].map((value) => (
-          <button
-            key={value}
-            type="button"
-            onClick={() => setNote(value)}
-            aria-pressed={note === value}
-            className={`h-11 w-11 rounded-full text-sm font-semibold transition-colors ${
-              note === value
-                ? "bg-primary text-primary-foreground"
-                : "bg-card text-foreground border border-border"
-            }`}
-          >
-            {value}
-          </button>
-        ))}
-      </div>
+      {!detailedMode ? (
+        <RatingButtons value={note} onChange={setNote} />
+      ) : (
+        <div className="flex flex-col gap-4">
+          {DETAILED_CRITERIA.map(({ key, label }) => (
+            <div key={key} className="flex flex-col items-center gap-2">
+              <span className="text-xs font-medium text-muted-foreground">
+                {label}
+              </span>
+              <RatingButtons
+                value={criteria[key] ?? null}
+                onChange={(value) =>
+                  setCriteria((current) => ({ ...current, [key]: value }))
+                }
+              />
+            </div>
+          ))}
+        </div>
+      )}
+
+      <button
+        type="button"
+        onClick={() => setDetailedMode((current) => !current)}
+        className="text-xs font-medium text-accent underline-offset-4 hover:underline"
+      >
+        {detailedMode
+          ? "Revenir à la note simple"
+          : "Noter chaque critère séparément"}
+      </button>
 
       <textarea
         value={comment}
@@ -85,7 +151,7 @@ function JournalStep({ onDone }: { onDone: () => void }) {
 
       <button
         onClick={handleSave}
-        disabled={note === null}
+        disabled={!canSave}
         className="rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground disabled:opacity-40"
       >
         Enregistrer
