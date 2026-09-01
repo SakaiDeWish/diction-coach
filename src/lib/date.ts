@@ -9,3 +9,10 @@ export function dateKey(date: Date): string {
 export function todayKey(): string {
   return dateKey(new Date());
 }
+
+/** Clé de date du jour situé `daysAgo` jours avant aujourd'hui (0 = aujourd'hui). */
+export function dateKeyDaysAgo(daysAgo: number): string {
+  const date = new Date();
+  date.setDate(date.getDate() - daysAgo);
+  return dateKey(date);
+}
