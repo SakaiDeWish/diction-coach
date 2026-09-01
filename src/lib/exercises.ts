@@ -1,36 +1,82 @@
-export type ExerciseCategory = "virelangue" | "lecture" | "respiration";
+export type ExerciseCategory =
+  | "echauffement"
+  | "virelangue"
+  | "lecture"
+  | "projection";
 
 export interface Exercise {
   id: string;
   category: ExerciseCategory;
   title: string;
   content: string;
+  instruction: string;
 }
 
 export const CATEGORY_LABELS: Record<ExerciseCategory, string> = {
+  echauffement: "Échauffement",
   virelangue: "Virelangue",
   lecture: "Lecture à voix haute",
-  respiration: "Respiration & diction",
+  projection: "Projection vocale",
 };
 
+/**
+ * Consigne rappelée pendant chaque séance (docs/PROTOCOLE.md, section 3) :
+ * la sur-articulation ne doit jamais déformer les sons.
+ */
+export const ARTICULATION_WARNING =
+  "Exagère les mouvements, ne déforme pas les sons.";
+
 export const EXERCISES: Exercise[] = [
+  {
+    id: "ech-1",
+    category: "echauffement",
+    title: "Bâillement-fredonnement",
+    content: "Baille largement, puis fredonne un « mmm » grave en sentant les lèvres vibrer.",
+    instruction: "Détends la mâchoire, sans forcer.",
+  },
+  {
+    id: "ech-2",
+    category: "echauffement",
+    title: "Trilles de lèvres",
+    content:
+      "Fais vibrer tes lèvres en soufflant, comme un moteur qui tourne, pendant une dizaine de secondes.",
+    instruction: "Garde un souffle régulier, sans à-coups.",
+  },
+  {
+    id: "ech-3",
+    category: "echauffement",
+    title: "Voyelles grand ouvert",
+    content: "Prononce A, E, I, O, U en ouvrant la bouche au maximum à chaque voyelle.",
+    instruction: "Exagère l'ouverture, sans déformer le son.",
+  },
+  {
+    id: "ech-4",
+    category: "echauffement",
+    title: "L'alphabet en une respiration",
+    content:
+      "Prends une grande inspiration, puis récite l'alphabet à voix haute sur une seule expiration, aussi loin que possible.",
+    instruction: "Cherche le souffle, pas la vitesse.",
+  },
   {
     id: "vir-1",
     category: "virelangue",
     title: "L'archiduchesse",
     content: "Les chaussettes de l'archiduchesse sont-elles sèches, archi-sèches ?",
+    instruction: "Sur-articule chaque mot.",
   },
   {
     id: "vir-2",
     category: "virelangue",
     title: "Le chasseur",
     content: "Un chasseur sachant chasser sait chasser sans son chien.",
+    instruction: "Sur-articule chaque mot.",
   },
   {
     id: "vir-3",
     category: "virelangue",
     title: "Les tortues",
     content: "Trois tortues trottaient sur un trottoir très étroit.",
+    instruction: "Sur-articule chaque mot.",
   },
   {
     id: "vir-4",
@@ -38,19 +84,22 @@ export const EXERCISES: Exercise[] = [
     title: "Les cyprès",
     content:
       "Si six scies scient six cyprès, six cent six scies scient six cent six cyprès.",
+    instruction: "Sur-articule chaque mot.",
   },
   {
     id: "vir-5",
     category: "virelangue",
     title: "Les chats",
     content: "Cinq chiens chassent six chats.",
+    instruction: "Sur-articule chaque mot.",
   },
   {
-    id: "lec-1",
+    id: "lec-6",
     category: "lecture",
     title: "Le ciel gris",
     content:
-      "Aujourd'hui, le ciel est gris mais l'air reste doux. Je marche lentement, en articulant chaque syllabe, sans me presser.",
+      "Le ciel est gris ce matin, mais l'air reste doux. Les gens pressés traversent la place sans un regard.",
+    instruction: "Sur-articule chaque mot, surtout les fins de mots.",
   },
   {
     id: "lec-2",
@@ -58,6 +107,7 @@ export const EXERCISES: Exercise[] = [
     title: "La bibliothèque",
     content:
       "La bibliothèque municipale ouvre à neuf heures. Les étagères, hautes et chargées, sentent le papier ancien.",
+    instruction: "Sur-articule chaque mot, surtout les fins de mots.",
   },
   {
     id: "lec-3",
@@ -65,6 +115,7 @@ export const EXERCISES: Exercise[] = [
     title: "Ouvrir la bouche",
     content:
       "Pour bien prononcer, il faut ouvrir grand la bouche et détacher chaque mot, comme si on parlait à quelqu'un qui lit sur les lèvres.",
+    instruction: "Sur-articule chaque mot, surtout les fins de mots.",
   },
   {
     id: "lec-4",
@@ -72,48 +123,38 @@ export const EXERCISES: Exercise[] = [
     title: "Le train en gare",
     content:
       "Le train entre en gare avec un peu de retard. Les voyageurs pressés grimpent les marches deux par deux.",
+    instruction: "Sur-articule chaque mot, surtout les fins de mots.",
   },
   {
-    id: "lec-5",
+    id: "lec-7",
     category: "lecture",
-    title: "Cinq minutes comptent",
+    title: "Le pain frais",
     content:
-      "Parler clairement demande de l'entraînement, pas du talent. Chaque jour compte, même cinq minutes.",
+      "Le pain frais sort du four à six heures précises. Son odeur traverse toute la rue jusqu'au bout du quartier.",
+    instruction: "Sur-articule chaque mot, surtout les fins de mots.",
   },
   {
-    id: "res-1",
-    category: "respiration",
-    title: "Compter jusqu'à dix",
-    content:
-      "Inspire profondément par le nez pendant 4 secondes, retiens 2 secondes, puis expire lentement en comptant à voix haute jusqu'à 10.",
+    id: "proj-1",
+    category: "projection",
+    title: "Phrase qui porte",
+    content: "Répète, en augmentant l'intensité à chaque fois : « Je serai prêt pour cet entretien. »",
+    instruction: "Projette ta voix, sans crier ni forcer.",
   },
   {
-    id: "res-2",
-    category: "respiration",
-    title: "Le long sifflement",
+    id: "proj-2",
+    category: "projection",
+    title: "Depuis le fond de la pièce",
     content:
-      "Inspire, puis expire en articulant un long « sssss » régulier, sans à-coups, jusqu'à manquer d'air.",
+      "Imagine que quelqu'un t'écoute depuis l'autre bout de la pièce. Dis : « Est-ce que vous m'entendez bien ? » en portant ta voix jusqu'à lui.",
+    instruction: "Pousse le son depuis le ventre, pas depuis la gorge.",
   },
   {
-    id: "res-3",
-    category: "respiration",
-    title: "L'alphabet en une respiration",
+    id: "proj-3",
+    category: "projection",
+    title: "La dernière syllabe",
     content:
-      "Prends une grande inspiration, puis récite l'alphabet à voix haute sur une seule expiration, aussi loin que possible.",
-  },
-  {
-    id: "res-4",
-    category: "respiration",
-    title: "Le rire contrôlé",
-    content:
-      "Inspire calmement, puis expire en prononçant « ha-ha-ha-ha » depuis le ventre, comme un rire contrôlé.",
-  },
-  {
-    id: "res-5",
-    category: "respiration",
-    title: "Le chuchotement précis",
-    content:
-      "Inspire par le nez, expire par la bouche en chuchotant une phrase de ton choix le plus distinctement possible.",
+      "Dis une phrase de ton choix en insistant particulièrement sur le dernier mot, sans le laisser mourir.",
+    instruction: "Garde l'énergie jusqu'au point final.",
   },
 ];
 

@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { CATEGORY_LABELS, type Exercise } from "@/lib/exercises";
+import { ARTICULATION_WARNING, CATEGORY_LABELS, type Exercise } from "@/lib/exercises";
 import { pickDailyExercises, resolveExercises } from "@/lib/pick-exercises";
 import {
   addSessionLog,
@@ -248,6 +248,9 @@ export default function SeancePage() {
             {exercise.title}
           </h1>
           <p className="mt-4 text-lg leading-relaxed">{exercise.content}</p>
+          <p className="mt-4 text-sm font-semibold text-primary">
+            {exercise.instruction}
+          </p>
         </div>
       )}
 
@@ -257,6 +260,10 @@ export default function SeancePage() {
       >
         {isLast ? "Terminer la séance" : "Exercice suivant"}
       </button>
+
+      <p className="text-center text-xs text-muted-foreground">
+        {ARTICULATION_WARNING}
+      </p>
     </main>
   );
 }

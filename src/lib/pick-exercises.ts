@@ -7,9 +7,10 @@ import {
 import type { SessionLog } from "@/lib/session-storage";
 
 const SESSION_CATEGORIES: ExerciseCategory[] = [
+  "echauffement",
   "virelangue",
   "lecture",
-  "respiration",
+  "projection",
 ];
 
 const RECENT_SESSIONS_TO_AVOID = 2;
