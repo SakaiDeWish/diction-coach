@@ -10,6 +10,12 @@ export interface Exercise {
   title: string;
   content: string;
   instruction: string;
+  /**
+   * Nombre de réitérations attendues avant de passer à l'exercice suivant
+   * (docs/PROTOCOLE.md, section 4 : bloqué pour apprendre). Absent pour les
+   * exercices en passe unique.
+   */
+  reps?: number;
 }
 
 export const CATEGORY_LABELS: Record<ExerciseCategory, string> = {
@@ -63,6 +69,7 @@ export const EXERCISES: Exercise[] = [
     title: "L'archiduchesse",
     content: "Les chaussettes de l'archiduchesse sont-elles sèches, archi-sèches ?",
     instruction: "Sur-articule chaque mot.",
+    reps: 8,
   },
   {
     id: "vir-2",
@@ -70,6 +77,7 @@ export const EXERCISES: Exercise[] = [
     title: "Le chasseur",
     content: "Un chasseur sachant chasser sait chasser sans son chien.",
     instruction: "Sur-articule chaque mot.",
+    reps: 8,
   },
   {
     id: "vir-3",
@@ -77,6 +85,7 @@ export const EXERCISES: Exercise[] = [
     title: "Les tortues",
     content: "Trois tortues trottaient sur un trottoir très étroit.",
     instruction: "Sur-articule chaque mot.",
+    reps: 8,
   },
   {
     id: "vir-4",
@@ -85,6 +94,7 @@ export const EXERCISES: Exercise[] = [
     content:
       "Si six scies scient six cyprès, six cent six scies scient six cent six cyprès.",
     instruction: "Sur-articule chaque mot.",
+    reps: 8,
   },
   {
     id: "vir-5",
@@ -92,6 +102,7 @@ export const EXERCISES: Exercise[] = [
     title: "Les chats",
     content: "Cinq chiens chassent six chats.",
     instruction: "Sur-articule chaque mot.",
+    reps: 8,
   },
   {
     id: "lec-6",

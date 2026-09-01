@@ -166,9 +166,17 @@ function JournalStep({ onDone }: { onDone: () => void }) {
   );
 }
 
+function repSpeedHint(repIndex: number, reps: number): string {
+  const ratio = repIndex / reps;
+  if (ratio <= 0.4) return "Pose chaque son distinctement.";
+  if (ratio <= 0.8) return "Garde le même rythme.";
+  return "Accélère, sans perdre un son.";
+}
+
 export default function SeancePage() {
   const [init, setInit] = React.useState<SeanceInit | null>(null);
   const [currentIndex, setCurrentIndex] = React.useState(0);
+  const [repIndex, setRepIndex] = React.useState(1);
   const [step, setStep] = React.useState<Step>("exercises");
 
   React.useEffect(() => {
@@ -214,8 +222,11 @@ export default function SeancePage() {
 
   const exercise = exercises[currentIndex];
   const isLast = currentIndex === exercises.length - 1;
+  const blockReps = exercise?.reps;
+  const blockInProgress = typeof blockReps === "number" && repIndex < blockReps;
 
-  const handleNext = () => {
+  const advanceToNextExercise = () => {
+    setRepIndex(1);
     if (isLast) {
       addSessionLog({
         date: todayKey(),
@@ -225,6 +236,14 @@ export default function SeancePage() {
       return;
     }
     setCurrentIndex((index) => index + 1);
+  };
+
+  const handlePrimaryClick = () => {
+    if (blockInProgress) {
+      setRepIndex((index) => index + 1);
+      return;
+    }
+    advanceToNextExercise();
   };
 
   return (
@@ -251,15 +270,39 @@ export default function SeancePage() {
           <p className="mt-4 text-sm font-semibold text-primary">
             {exercise.instruction}
           </p>
+
+          {typeof blockReps === "number" && (
+            <div className="mt-4 border-t border-border pt-4">
+              <div className="font-display tabular-nums text-sm font-medium text-accent">
+                Répétition {repIndex} / {blockReps}
+              </div>
+              <p className="mt-1 text-sm text-muted-foreground">
+                {repSpeedHint(repIndex, blockReps)}
+              </p>
+            </div>
+          )}
         </div>
       )}
 
       <button
-        onClick={handleNext}
+        onClick={handlePrimaryClick}
         className="rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground"
       >
-        {isLast ? "Terminer la séance" : "Exercice suivant"}
+        {blockInProgress
+          ? "Répétition suivante"
+          : isLast
+            ? "Terminer la séance"
+            : "Exercice suivant"}
       </button>
+
+      {blockInProgress && (
+        <button
+          onClick={advanceToNextExercise}
+          className="text-sm font-medium text-muted-foreground underline-offset-4 hover:underline"
+        >
+          Passer le reste des répétitions
+        </button>
+      )}
 
       <p className="text-center text-xs text-muted-foreground">
         {ARTICULATION_WARNING}
