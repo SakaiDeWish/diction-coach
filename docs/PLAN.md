@@ -102,7 +102,7 @@ Aucune.
 
 ---
 
-## Phase 6 : Ordonnancement bloqué puis aléatoire
+## Phase 6 : Ordonnancement bloqué puis aléatoire, LIVRÉE
 
 **User stories** : 20
 **Justification** : docs/PROTOCOLE.md sections 4 et 5
@@ -128,12 +128,12 @@ et n'a pas besoin de changer.
 
 ### Critères d'acceptation
 
-- [ ] Un exercice peut déclarer un nombre de réitérations attendu (`reps`)
-- [ ] L'écran de séance affiche la progression des réitérations, par exemple 3 / 8,
+- [x] Un exercice peut déclarer un nombre de réitérations attendu (`reps`)
+- [x] L'écran de séance affiche la progression des réitérations, par exemple 3 / 8,
       et ne passe à l'exercice suivant qu'une fois le bloc terminé ou explicitement passé
-- [ ] Le virelangue est répété en bloc ; la lecture et la projection restent en passe unique
-- [ ] Le tirage entre séances continue d'éviter les exercices des 2 dernières séances
-- [ ] `SessionLog` continue d'enregistrer les identifiants d'exercices comme aujourd'hui
+- [x] Le virelangue est répété en bloc ; la lecture et la projection restent en passe unique
+- [x] Le tirage entre séances continue d'éviter les exercices des 2 dernières séances
+- [x] `SessionLog` continue d'enregistrer les identifiants d'exercices comme aujourd'hui
 
 ### Bloquée par
 
