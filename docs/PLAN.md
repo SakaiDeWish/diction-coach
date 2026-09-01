@@ -53,7 +53,7 @@ User story 5. Mode détaillé (débit, articulation, fatigue) en option du mode 
 
 # Phases correctives
 
-## Phase 5 : Recaler le contenu sur les preuves
+## Phase 5 : Recaler le contenu sur les preuves, LIVRÉE
 
 **User stories** : 18, 19
 **Justification** : docs/PROTOCOLE.md sections 1, 2, 3
