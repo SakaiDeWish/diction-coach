@@ -86,14 +86,14 @@ phrase.
 
 ### Critères d'acceptation
 
-- [ ] `Exercise` porte un champ `instruction`, affiché sur l'écran de séance
-- [ ] Aucun exercice de la banque n'emploie « lentement », « sans se presser » ou
+- [x] `Exercise` porte un champ `instruction`, affiché sur l'écran de séance
+- [x] Aucun exercice de la banque n'emploie « lentement », « sans se presser » ou
       « chuchoter » comme consigne
-- [ ] La catégorie `respiration` est scindée en `echauffement` et `projection`,
+- [x] La catégorie `respiration` est scindée en `echauffement` et `projection`,
       avec au moins 3 exercices chacune
-- [ ] Un avertissement « exagère les mouvements, ne déforme pas les sons » est visible
+- [x] Un avertissement « exagère les mouvements, ne déforme pas les sons » est visible
       au moins une fois par séance
-- [ ] Les `SessionLog` existants, qui référencent les anciens identifiants d'exercices,
+- [x] Les `SessionLog` existants, qui référencent les anciens identifiants d'exercices,
       restent lisibles par l'historique sans planter
 
 ### Bloquée par
@@ -141,7 +141,7 @@ et n'a pas besoin de changer.
 
 ---
 
-## Phase 7 : Streak tolérant et indicateur de dose
+## Phase 7 : Streak tolérant et indicateur de dose, LIVRÉE
 
 **User stories** : 21, 22
 **Justification** : docs/PROTOCOLE.md section 10
@@ -168,11 +168,11 @@ Bürgler 2026).
 
 ### Critères d'acceptation
 
-- [ ] Une série survit à un jour manqué isolé
-- [ ] Deux jours consécutifs manqués remettent la série à zéro
-- [ ] L'usage d'un jour de grâce est visible pour l'utilisateur, sans le culpabiliser
-- [ ] L'accueil affiche le nombre de séances des 30 derniers jours
-- [ ] Un déclencheur contextuel est demandé au premier lancement, modifiable ensuite,
+- [x] Une série survit à un jour manqué isolé
+- [x] Deux jours consécutifs manqués remettent la série à zéro
+- [x] L'usage d'un jour de grâce est visible pour l'utilisateur, sans le culpabiliser
+- [x] L'accueil affiche le nombre de séances des 30 derniers jours
+- [x] Un déclencheur contextuel est demandé au premier lancement, modifiable ensuite,
       et l'app reste pleinement utilisable s'il n'est pas renseigné
 
 ### Bloquée par
