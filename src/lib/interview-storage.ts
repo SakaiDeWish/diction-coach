@@ -16,7 +16,7 @@ export interface InterviewSession {
   recordingId?: string;
 }
 
-const INTERVIEW_KEY = "diction-coach:interviews";
+export const INTERVIEW_KEY = "diction-coach:interviews";
 
 function isBrowser(): boolean {
   return typeof window !== "undefined";

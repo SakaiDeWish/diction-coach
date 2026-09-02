@@ -29,7 +29,7 @@ export type JournalEntry = {
   | { mode: "detailed"; criteria: JournalCriteria }
 );
 
-const JOURNAL_KEY = "diction-coach:journal";
+export const JOURNAL_KEY = "diction-coach:journal";
 
 function isBrowser(): boolean {
   return typeof window !== "undefined";

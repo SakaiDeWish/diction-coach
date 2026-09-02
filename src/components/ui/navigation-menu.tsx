@@ -14,7 +14,7 @@ const navItems = [
   { name: "Accueil", href: "/" },
   { name: "Séance", href: "/seance" },
   { name: "Historique", href: "/historique" },
-  { name: "Réglages", href: "#" },
+  { name: "Réglages", href: "/reglages" },
 ];
 
 const EXPAND_SCROLL_THRESHOLD = 80;

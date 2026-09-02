@@ -3,7 +3,7 @@ export interface SessionLog {
   exerciseIds: string[];
 }
 
-const SESSIONS_KEY = "diction-coach:sessions";
+export const SESSIONS_KEY = "diction-coach:sessions";
 const PENDING_KEY = "diction-coach:pending-session";
 
 function isBrowser(): boolean {

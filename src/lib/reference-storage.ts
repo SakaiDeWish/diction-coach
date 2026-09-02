@@ -20,8 +20,8 @@ export interface ComparisonVerdict {
   winner: "older" | "newer" | "equal";
 }
 
-const REFERENCES_KEY = "diction-coach:references";
-const COMPARISONS_KEY = "diction-coach:comparisons";
+export const REFERENCES_KEY = "diction-coach:references";
+export const COMPARISONS_KEY = "diction-coach:comparisons";
 
 function isBrowser(): boolean {
   return typeof window !== "undefined";

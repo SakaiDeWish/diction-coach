@@ -317,7 +317,7 @@ comprendre. Le résultat est enregistré avec sa date.
 
 # Phases initiales repoussées
 
-## Phase 11 : Export / Import
+## Phase 11 : Export / Import, LIVRÉE
 
 **User stories** : 11, 12
 *(Anciennement phase 5.)*
@@ -329,11 +329,11 @@ appareil ou après réinstallation.
 
 ### Critères d'acceptation
 
-- [ ] L'export contient séances, journal, écarts de calibration, déclencheur contextuel
+- [x] L'export contient séances, journal, écarts de calibration, déclencheur contextuel
       et résultats de comparaison
-- [ ] L'import d'un fichier exporté restaure fidèlement ces données
-- [ ] Importer sur une installation vierge reconstitue un état identique
-- [ ] Le sort des enregistrements audio est explicite, soit inclus, soit exclus avec
+- [x] L'import d'un fichier exporté restaure fidèlement ces données
+- [x] Importer sur une installation vierge reconstitue un état identique
+- [x] Le sort des enregistrements audio est explicite, soit inclus, soit exclus avec
       un avertissement clair à l'utilisateur
 
 ### Bloquée par

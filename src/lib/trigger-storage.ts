@@ -1,4 +1,4 @@
-const TRIGGER_KEY = "diction-coach:trigger";
+export const TRIGGER_KEY = "diction-coach:trigger";
 
 function isBrowser(): boolean {
   return typeof window !== "undefined";
