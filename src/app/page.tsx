@@ -6,6 +6,7 @@ import { AnimatedNavFramer } from "@/components/ui/navigation-menu";
 import { getSessionLogForDate, getSessionLogs } from "@/lib/session-storage";
 import { computeStreakInfo, countSessionsInLastDays } from "@/lib/streak";
 import { getContextTrigger, setContextTrigger } from "@/lib/trigger-storage";
+import { isInterviewSessionDue } from "@/lib/interview-storage";
 import { todayKey } from "@/lib/date";
 
 interface HomeStatus {
@@ -15,6 +16,7 @@ interface HomeStatus {
   graceInUse: boolean;
   sessions30: number;
   trigger: string | null;
+  interviewDue: boolean;
 }
 
 function StreakCard({
@@ -135,6 +137,7 @@ export default function HomePage() {
         graceInUse,
         sessions30: countSessionsInLastDays(logs),
         trigger: getContextTrigger(),
+        interviewDue: isInterviewSessionDue(),
       };
     });
   }, []);
@@ -183,6 +186,15 @@ export default function HomePage() {
             {status.doneToday
               ? "Refaire une séance"
               : "Démarrer la séance du jour"}
+          </Link>
+        )}
+
+        {status?.interviewDue && (
+          <Link
+            href="/entretien"
+            className="rounded-full border border-border bg-card px-6 py-3 text-sm font-semibold text-foreground"
+          >
+            Séance en conditions d&apos;entretien
           </Link>
         )}
 

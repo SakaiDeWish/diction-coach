@@ -249,7 +249,7 @@ retour, pas sa fréquence, et l'évidence sur la fréquence réduite est contest
 
 ---
 
-## Phase 9 : Séance en conditions d'entretien
+## Phase 9 : Séance en conditions d'entretien, LIVRÉE
 
 **User stories** : 26
 **Justification** : docs/PROTOCOLE.md sections 8 et 11
@@ -267,11 +267,11 @@ sur l'intelligibilité mesurée (Krajewski 2026), ce qui plafonne l'entraînemen
 
 ### Critères d'acceptation
 
-- [ ] Une séance « en conditions » est proposée une fois par semaine, sans remplacer
+- [x] Une séance « en conditions » est proposée une fois par semaine, sans remplacer
       la séance quotidienne
-- [ ] La préparation est limitée par un compte à rebours visible
-- [ ] La réponse est enregistrée et suit la même boucle d'auto-évaluation que la phase 8
-- [ ] Ces séances sont distinguables des séances ordinaires dans l'historique
+- [x] La préparation est limitée par un compte à rebours visible
+- [x] La réponse est enregistrée et suit la même boucle d'auto-évaluation que la phase 8
+- [x] Ces séances sont distinguables des séances ordinaires dans l'historique
 
 ### Bloquée par
 
