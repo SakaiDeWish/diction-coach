@@ -342,7 +342,7 @@ appareil ou après réinstallation.
 
 ---
 
-## Phase 12 : Installation et hors-ligne
+## Phase 12 : Installation et hors-ligne, LIVRÉE
 
 **User stories** : 13, 14
 *(Anciennement phase 6.)*
@@ -354,12 +354,12 @@ chargement.
 
 ### Critères d'acceptation
 
-- [ ] L'application propose une installation sur l'écran d'accueil depuis un navigateur
+- [x] L'application propose une installation sur l'écran d'accueil depuis un navigateur
       mobile compatible
-- [ ] Après un premier chargement en ligne, démarrer une séance et journaliser
+- [x] Après un premier chargement en ligne, démarrer une séance et journaliser
       fonctionnent hors connexion
-- [ ] L'enregistrement audio fonctionne hors connexion
-- [ ] Les données créées hors-ligne restent présentes au retour en ligne
+- [x] L'enregistrement audio fonctionne hors connexion
+- [x] Les données créées hors-ligne restent présentes au retour en ligne
 
 ### Bloquée par
 
