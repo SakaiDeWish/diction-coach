@@ -7,6 +7,10 @@ import { getSessionLogForDate, getSessionLogs } from "@/lib/session-storage";
 import { computeStreakInfo, countSessionsInLastDays } from "@/lib/streak";
 import { getContextTrigger, setContextTrigger } from "@/lib/trigger-storage";
 import { isInterviewSessionDue } from "@/lib/interview-storage";
+import {
+  getReferenceRecordings,
+  isReferenceRecordingDue,
+} from "@/lib/reference-storage";
 import { todayKey } from "@/lib/date";
 
 interface HomeStatus {
@@ -17,6 +21,8 @@ interface HomeStatus {
   sessions30: number;
   trigger: string | null;
   interviewDue: boolean;
+  referenceDue: boolean;
+  canCompare: boolean;
 }
 
 function StreakCard({
@@ -138,6 +144,8 @@ export default function HomePage() {
         sessions30: countSessionsInLastDays(logs),
         trigger: getContextTrigger(),
         interviewDue: isInterviewSessionDue(),
+        referenceDue: isReferenceRecordingDue(),
+        canCompare: getReferenceRecordings().length >= 2,
       };
     });
   }, []);
@@ -195,6 +203,24 @@ export default function HomePage() {
             className="rounded-full border border-border bg-card px-6 py-3 text-sm font-semibold text-foreground"
           >
             Séance en conditions d&apos;entretien
+          </Link>
+        )}
+
+        {status?.referenceDue && (
+          <Link
+            href="/reference"
+            className="rounded-full border border-border bg-card px-6 py-3 text-sm font-semibold text-foreground"
+          >
+            Enregistrer le paragraphe de référence
+          </Link>
+        )}
+
+        {status?.canCompare && (
+          <Link
+            href="/comparaison"
+            className="text-sm font-medium text-accent underline-offset-4 hover:underline"
+          >
+            Comparer deux enregistrements à l&apos;aveugle
           </Link>
         )}
 

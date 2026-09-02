@@ -78,6 +78,8 @@ export function RecordAndCalibrate({
   prepSeconds = 0,
   maxSeconds,
   recordingPrefix,
+  instruction = "Sur-articule chaque mot.",
+  withCalibration = true,
   onPredicted,
   onFinished,
 }: {
@@ -88,6 +90,14 @@ export function RecordAndCalibrate({
   prepSeconds?: number;
   maxSeconds: number;
   recordingPrefix: string;
+  /**
+   * Consigne affichée pendant l'enregistrement. Par défaut la sur-articulation,
+   * mais le paragraphe de référence s'enregistre en condition habituelle, sinon
+   * on mesure la consigne et non l'acquis (docs/PROTOCOLE.md, section 12).
+   */
+  instruction?: string;
+  /** À false, l'enregistrement se termine sans boucle d'auto-évaluation. */
+  withCalibration?: boolean;
   /** Appelé dès la note prédite validée, pour persister sans attendre la fin. */
   onPredicted?: (result: CalibrationResult) => void;
   onFinished: (result: CalibrationResult | null) => void;
@@ -125,14 +135,19 @@ export function RecordAndCalibrate({
       });
       const id = `${recordingPrefix}-${todayKey()}-${Date.now()}`;
       const stored = await saveRecording(id, blob);
-      setRecordingId(stored ? id : undefined);
+      const storedId = stored ? id : undefined;
+      setRecordingId(storedId);
+      if (!withCalibration) {
+        onFinished({ predicted: 0, recordingId: storedId });
+        return;
+      }
       setPhase("predict");
     };
 
     recorder.start();
     setElapsed(0);
     setPhase("recording");
-  }, [recordingPrefix]);
+  }, [recordingPrefix, withCalibration, onFinished]);
 
   // Compte à rebours de préparation.
   React.useEffect(() => {
@@ -336,9 +351,7 @@ export function RecordAndCalibrate({
           {formatSeconds(elapsed)}
         </div>
         <p className="text-sm text-muted-foreground">{prompt}</p>
-        <p className="text-sm font-semibold text-primary">
-          Sur-articule chaque mot.
-        </p>
+        <p className="text-sm font-semibold text-primary">{instruction}</p>
         <button
           onClick={() => recorderRef.current?.stop()}
           className="rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground"
@@ -360,9 +373,7 @@ export function RecordAndCalibrate({
       </div>
       <div className="rounded-3xl border border-border bg-card p-6 text-left shadow-sm">
         <p className="text-lg leading-relaxed">{prompt}</p>
-        <p className="mt-4 text-sm font-semibold text-primary">
-          Sur-articule chaque mot.
-        </p>
+        <p className="mt-4 text-sm font-semibold text-primary">{instruction}</p>
         {hint && <p className="mt-2 text-sm text-muted-foreground">{hint}</p>}
       </div>
       <button

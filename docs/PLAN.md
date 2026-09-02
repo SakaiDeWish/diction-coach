@@ -279,7 +279,7 @@ sur l'intelligibilité mesurée (Krajewski 2026), ce qui plafonne l'entraînemen
 
 ---
 
-## Phase 10 : Mesure mensuelle par paragraphe de référence
+## Phase 10 : Mesure mensuelle par paragraphe de référence, LIVRÉE
 
 **User stories** : 27, 28
 **Justification** : docs/PROTOCOLE.md section 12
@@ -302,12 +302,12 @@ comprendre. Le résultat est enregistré avec sa date.
 
 ### Critères d'acceptation
 
-- [ ] Un paragraphe de référence unique et invariant est proposé une fois par mois
-- [ ] Il est enregistré avec la consigne explicite de parler normalement
-- [ ] Le mode comparaison lit deux enregistrements dans un ordre aléatoire, sans révéler
+- [x] Un paragraphe de référence unique et invariant est proposé une fois par mois
+- [x] Il est enregistré avec la consigne explicite de parler normalement
+- [x] Le mode comparaison lit deux enregistrements dans un ordre aléatoire, sans révéler
       lequel est le plus récent avant le choix
-- [ ] Le résultat de chaque comparaison est stocké avec sa date
-- [ ] L'historique montre la suite des verdicts dans le temps
+- [x] Le résultat de chaque comparaison est stocké avec sa date
+- [x] L'historique montre la suite des verdicts dans le temps
 
 ### Bloquée par
 

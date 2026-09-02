@@ -11,6 +11,10 @@ import {
   getInterviewSessionsSortedDesc,
   type InterviewSession,
 } from "@/lib/interview-storage";
+import {
+  getComparisonsSortedDesc,
+  type ComparisonVerdict,
+} from "@/lib/reference-storage";
 
 function formatDateLabel(dateKey: string): string {
   const [year, month, day] = dateKey.split("-").map(Number);
@@ -106,6 +110,44 @@ function InterviewCard({ session }: { session: InterviewSession }) {
   );
 }
 
+const VERDICT_LABELS: Record<ComparisonVerdict["winner"], string> = {
+  newer: "Le plus récent jugé plus clair",
+  older: "Le plus ancien jugé plus clair",
+  equal: "Aucune différence perçue",
+};
+
+function ComparisonList({ verdicts }: { verdicts: ComparisonVerdict[] }) {
+  return (
+    <div className="rounded-3xl border border-border bg-card/70 p-5 text-left shadow-sm backdrop-blur-md">
+      <div className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+        Comparaisons à l&apos;aveugle
+      </div>
+      <div className="mt-3 flex flex-col gap-2">
+        {verdicts.map((verdict) => (
+          <div key={verdict.id} className="flex justify-between gap-3 text-sm">
+            <span
+              className={
+                verdict.winner === "newer"
+                  ? "font-medium text-accent"
+                  : "text-muted-foreground"
+              }
+            >
+              {VERDICT_LABELS[verdict.winner]}
+            </span>
+            <span className="shrink-0 text-xs text-muted-foreground">
+              {formatDateLabel(verdict.date)}
+            </span>
+          </div>
+        ))}
+      </div>
+      <p className="mt-3 text-xs text-muted-foreground">
+        Le jugement d&apos;un auditeur naïf est la seule mesure de progrès qui
+        fasse foi.
+      </p>
+    </div>
+  );
+}
+
 /** Moyenne des écarts de calibration, du plus ancien au plus récent. */
 function CalibrationTrend({ entries }: { entries: JournalEntry[] }) {
   const gaps = [...entries]
@@ -145,6 +187,7 @@ function CalibrationTrend({ entries }: { entries: JournalEntry[] }) {
 interface HistoryData {
   entries: JournalEntry[];
   interviews: InterviewSession[];
+  comparisons: ComparisonVerdict[];
 }
 
 export default function HistoriquePage() {
@@ -158,6 +201,7 @@ export default function HistoriquePage() {
     setData({
       entries: getJournalEntriesSortedDesc(),
       interviews: getInterviewSessionsSortedDesc(),
+      comparisons: getComparisonsSortedDesc(),
     });
   }, []);
 
@@ -167,7 +211,10 @@ export default function HistoriquePage() {
       <main className="mx-auto flex min-h-svh max-w-md flex-col gap-6 px-6 py-24">
         <h1 className="font-display text-2xl font-semibold">Historique</h1>
 
-        {data && data.entries.length === 0 && data.interviews.length === 0 && (
+        {data &&
+          data.entries.length === 0 &&
+          data.interviews.length === 0 &&
+          data.comparisons.length === 0 && (
           <>
             <p className="text-muted-foreground">
               Aucune entrée de journal pour l&apos;instant. Elles apparaîtront
@@ -180,6 +227,10 @@ export default function HistoriquePage() {
               Démarrer une séance
             </Link>
           </>
+        )}
+
+        {data && data.comparisons.length > 0 && (
+          <ComparisonList verdicts={data.comparisons} />
         )}
 
         {entries && entries.length > 0 && (
