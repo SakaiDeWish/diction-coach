@@ -21,10 +21,15 @@ const jetbrainsMono = JetBrains_Mono({
   weight: ["400", "500", "600"],
 });
 
+// Next.js ne préfixe pas automatiquement `manifest` ni `icons` avec basePath
+// (contrairement aux chunks JS/CSS), il faut le faire explicitement ici pour
+// que ces liens restent valides sous un sous-chemin comme GitHub Pages.
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+
 export const metadata: Metadata = {
   title: "Diction Coach",
   description: "Entraînement quotidien à l'articulation",
-  manifest: "/manifest.webmanifest",
+  manifest: `${basePath}/manifest.webmanifest`,
   appleWebApp: {
     capable: true,
     title: "Diction Coach",
@@ -32,10 +37,10 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
-      { url: "/icon-512.png", sizes: "512x512", type: "image/png" },
+      { url: `${basePath}/icon-192.png`, sizes: "192x192", type: "image/png" },
+      { url: `${basePath}/icon-512.png`, sizes: "512x512", type: "image/png" },
     ],
-    apple: "/apple-touch-icon.png",
+    apple: `${basePath}/apple-touch-icon.png`,
   },
 };
 

@@ -13,7 +13,10 @@ export function ServiceWorkerRegistration() {
       return;
     }
     const register = () => {
-      navigator.serviceWorker.register("/sw.js").catch(() => {
+      // Inlinée par Next.js au build : vide sauf sur GitHub Pages, où le site
+      // est servi sous /diction-coach/ plutôt qu'à la racine du domaine.
+      const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+      navigator.serviceWorker.register(`${basePath}/sw.js`).catch(() => {
         // Hors-ligne indisponible, le reste de l'app continue de fonctionner.
       });
     };
