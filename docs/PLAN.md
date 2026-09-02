@@ -181,7 +181,7 @@ Aucune. Indépendante des phases 5 et 6, réalisable en parallèle.
 
 ---
 
-## Phase 8 : Enregistrement et auto-évaluation calibrée
+## Phase 8 : Enregistrement et auto-évaluation calibrée, LIVRÉE
 
 **User stories** : 23, 24, 25
 **Justification** : docs/PROTOCOLE.md sections 6 et 9
@@ -232,15 +232,15 @@ retour, pas sa fréquence, et l'évidence sur la fréquence réduite est contest
 
 ### Critères d'acceptation
 
-- [ ] Une étape de parole spontanée enregistrée, 60 à 90 s, clôt la séance
-- [ ] L'enregistrement est stocké en IndexedDB et réécoutable dans l'app
-- [ ] Aucune requête réseau ne transporte l'audio
-- [ ] La note prédite est saisie **avant** que la réécoute soit possible, sans retour arrière
-- [ ] L'écart entre note prédite et note après écoute est calculé, stocké et affiché
-- [ ] L'historique montre l'évolution de cet écart dans le temps
-- [ ] Refuser l'accès au micro, ou en manquer, ne bloque pas la séance : l'étape est
+- [x] Une étape de parole spontanée enregistrée, 60 à 90 s, clôt la séance
+- [x] L'enregistrement est stocké en IndexedDB et réécoutable dans l'app
+- [x] Aucune requête réseau ne transporte l'audio
+- [x] La note prédite est saisie **avant** que la réécoute soit possible, sans retour arrière
+- [x] L'écart entre note prédite et note après écoute est calculé, stocké et affiché
+- [x] L'historique montre l'évolution de cet écart dans le temps
+- [x] Refuser l'accès au micro, ou en manquer, ne bloque pas la séance : l'étape est
       simplement sautée
-- [ ] Un quota de stockage atteint est géré sans planter, avec purge des enregistrements
+- [x] Un quota de stockage atteint est géré sans planter, avec purge des enregistrements
       les plus anciens au delà d'un seuil configurable
 
 ### Bloquée par

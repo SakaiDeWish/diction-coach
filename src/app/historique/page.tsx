@@ -53,9 +53,56 @@ function EntryCard({ entry }: { entry: JournalEntry }) {
         </div>
       )}
 
+      {entry.calibration && typeof entry.calibration.gap === "number" && (
+        <div className="mt-2 text-sm text-muted-foreground">
+          Écart de calibration{" "}
+          <span className="font-display tabular-nums font-medium text-accent">
+            {entry.calibration.gap}
+          </span>{" "}
+          (prédit {entry.calibration.predicted}/5, après écoute{" "}
+          {entry.calibration.after}/5)
+        </div>
+      )}
+
       {entry.comment && (
         <p className="mt-2 text-sm leading-relaxed">{entry.comment}</p>
       )}
+    </div>
+  );
+}
+
+/** Moyenne des écarts de calibration, du plus ancien au plus récent. */
+function CalibrationTrend({ entries }: { entries: JournalEntry[] }) {
+  const gaps = [...entries]
+    .reverse()
+    .map((entry) => entry.calibration?.gap)
+    .filter((gap): gap is number => typeof gap === "number");
+
+  if (gaps.length < 2) return null;
+
+  const half = Math.floor(gaps.length / 2);
+  const average = (values: number[]) =>
+    values.reduce((total, value) => total + value, 0) / values.length;
+  const older = average(gaps.slice(0, half));
+  const recent = average(gaps.slice(half));
+
+  return (
+    <div className="rounded-3xl border border-border bg-card/70 p-5 text-left shadow-sm backdrop-blur-md">
+      <div className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+        Calibration
+      </div>
+      <div className="mt-2 flex items-baseline gap-3">
+        <span className="font-display tabular-nums text-3xl font-light">
+          {recent.toFixed(1)}
+        </span>
+        <span className="text-sm text-muted-foreground">
+          écart moyen récent, contre {older.toFixed(1)} avant
+        </span>
+      </div>
+      <p className="mt-2 text-xs text-muted-foreground">
+        Plus cet écart diminue, mieux tu perçois ta propre clarté. Mesuré sur{" "}
+        {gaps.length} réécoutes.
+      </p>
     </div>
   );
 }
@@ -90,6 +137,10 @@ export default function HistoriquePage() {
           >
             Démarrer une séance
           </Link>
+        )}
+
+        {entries && entries.length > 0 && (
+          <CalibrationTrend entries={entries} />
         )}
 
         <div className="flex flex-col gap-3">

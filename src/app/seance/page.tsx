@@ -11,7 +11,12 @@ import {
   getSessionLogs,
   setPendingSelection,
 } from "@/lib/session-storage";
-import { addJournalEntry, type JournalCriteria } from "@/lib/journal-storage";
+import {
+  addJournalEntry,
+  type CalibrationData,
+  type JournalCriteria,
+} from "@/lib/journal-storage";
+import { TransferAndCalibration } from "@/components/transfer-calibration";
 import { todayKey } from "@/lib/date";
 
 interface SeanceInit {
@@ -36,7 +41,7 @@ function initSeance(): SeanceInit {
   return { exercises: picked, alreadyDoneToday };
 }
 
-type Step = "exercises" | "journal" | "done";
+type Step = "exercises" | "transfer" | "journal" | "done";
 
 const DETAILED_CRITERIA: { key: keyof JournalCriteria; label: string }[] = [
   { key: "debit", label: "Débit" },
@@ -72,7 +77,13 @@ function RatingButtons({
   );
 }
 
-function JournalStep({ onDone }: { onDone: () => void }) {
+function JournalStep({
+  calibration,
+  onDone,
+}: {
+  calibration: CalibrationData | null;
+  onDone: () => void;
+}) {
   const [detailedMode, setDetailedMode] = React.useState(false);
   const [note, setNote] = React.useState<number | null>(null);
   const [criteria, setCriteria] = React.useState<Partial<JournalCriteria>>({});
@@ -87,12 +98,16 @@ function JournalStep({ onDone }: { onDone: () => void }) {
 
   const handleSave = () => {
     const trimmedComment = comment.trim() || undefined;
+    // La calibration est déjà persistée à la fin de l'étape de transfert, on
+    // la reporte ici pour ne pas la perdre en réécrivant l'entrée du jour.
+    const calibrationData = calibration ?? undefined;
     if (detailedMode && detailedComplete) {
       addJournalEntry({
         date: todayKey(),
         mode: "detailed",
         criteria: criteria as JournalCriteria,
         comment: trimmedComment,
+        calibration: calibrationData,
       });
     } else {
       addJournalEntry({
@@ -100,6 +115,7 @@ function JournalStep({ onDone }: { onDone: () => void }) {
         mode: "simple",
         note: note ?? 3,
         comment: trimmedComment,
+        calibration: calibrationData,
       });
     }
     onDone();
@@ -178,6 +194,9 @@ export default function SeancePage() {
   const [currentIndex, setCurrentIndex] = React.useState(0);
   const [repIndex, setRepIndex] = React.useState(1);
   const [step, setStep] = React.useState<Step>("exercises");
+  const [calibration, setCalibration] = React.useState<CalibrationData | null>(
+    null,
+  );
 
   React.useEffect(() => {
     // Tirage des exercices + lecture/écriture du localStorage au montage :
@@ -191,8 +210,24 @@ export default function SeancePage() {
 
   const { exercises, alreadyDoneToday } = init;
 
+  if (step === "transfer") {
+    return (
+      <TransferAndCalibration
+        onFinished={(data) => {
+          setCalibration(data);
+          setStep("journal");
+        }}
+      />
+    );
+  }
+
   if (step === "journal") {
-    return <JournalStep onDone={() => setStep("done")} />;
+    return (
+      <JournalStep
+        calibration={calibration}
+        onDone={() => setStep("done")}
+      />
+    );
   }
 
   if (step === "done") {
@@ -232,7 +267,7 @@ export default function SeancePage() {
         date: todayKey(),
         exerciseIds: exercises.map((item) => item.id),
       });
-      setStep("journal");
+      setStep("transfer");
       return;
     }
     setCurrentIndex((index) => index + 1);
